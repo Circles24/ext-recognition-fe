@@ -1,7 +1,7 @@
 import React from "react"
-import { Card, CardMedia, CardActions, CardContent, Typography, Button } from "@mui/material"
+import { Card, CardMedia, CardActions, CardContent, Typography, Button, Box } from "@mui/material"
 
-export const ExternalRecognitionCard = ({ title, description }) => {
+export const ExternalRecognitionCard = ({ title, description, externalLinks }) => {
     return (
         <Card  >
             <CardMedia
@@ -18,6 +18,13 @@ export const ExternalRecognitionCard = ({ title, description }) => {
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     {description}
                 </Typography>
+                <Box display="flex" flexDirection="row" flexWrap="wrap" marginTop="2vh" >
+                    { externalLinks !== null && externalLinks !== undefined && externalLinks.map(link => <Box marginRight="1vw">
+                        <Button size="small" onClick={() => window.open(link, "_blank")}>
+                            <Typography variant="body2" >Read more</Typography>
+                        </Button>
+                    </Box>)}
+                </Box>
             </CardContent>
             <CardActions>
                 <Button size="small">Like</Button>

@@ -13,11 +13,25 @@ export const ExternalRecognitionList = () => {
 
     useEffect(() => {
         axios.get("http://localhost:8080/recognition/api/external-recognition")
-            .then(res => setData({
-                loading: false,
-                error: null,
-                response: res.data
-            })).catch(err => setData({
+            .then(res => {
+                const recognitions = res.data.map(r => {
+                    let externalLinks = [];
+                    if (r.externalLinks !== "" && r.externalLinks !== undefined && r.externalLinks !== null) {
+                        externalLinks = r.externalLinks.split(",")
+                            .map(link => link.trim())
+                            .filter(link => link !== "");
+                    }
+
+                    return { ...r, externalLinks }
+                });
+
+                console.log("recognitions", recognitions);
+                setData({
+                    loading: false,
+                    error: null,
+                    response: recognitions
+                });
+            }).catch(err => setData({
                 loading: false,
                 error: "Error loading external recognitions " + err,
                 response: null
@@ -43,7 +57,7 @@ export const ExternalRecognitionList = () => {
                 <Box>
                     {data.response.map(r =>
                         <Box sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "25vw", marginTop: "2vh" }}>
-                            <ExternalRecognitionCard title={r.title} description={r.description} />
+                            <ExternalRecognitionCard {...r} />
                         </Box>
                     )}
                 </Box>
