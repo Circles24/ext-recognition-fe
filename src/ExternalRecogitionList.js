@@ -1,7 +1,8 @@
 import { Alert, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Box, Paper, Card, CardMedia, CardContent, CardActions, Button } from "@mui/material";
+import { Box, Paper } from "@mui/material";
+import { ExternalRecognitionCard } from "./ExternalRecognitionCard";
 
 export const ExternalRecognitionList = () => {
     const [data, setData] = useState({
@@ -40,38 +41,14 @@ export const ExternalRecognitionList = () => {
                     <Typography variant="h6">External Recognitions</Typography>
                 </Box>
                 <Box>
-                    {data.response.map(r => <RecognitionCard title={r.title} description={r.description} />)}
+                    {data.response.map(r =>
+                        <Box sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "25vw", marginTop: "2vh" }}>
+                            <ExternalRecognitionCard title={r.title} description={r.description} />
+                        </Box>
+                    )}
                 </Box>
             </Box>
         </Paper>
     )
 }
 
-const RecognitionCard = ({ title, description }) => {
-    return (
-        <Card sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "25vw", marginTop: "2vh" }} >
-            <CardMedia
-                component="img"
-                alt="green iguana"
-                height="100"
-                image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-            />
-
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {title}
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {description}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Like</Button>
-                <Button size="small">Comment</Button>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-            </CardActions>
-
-        </Card>
-    )
-}
