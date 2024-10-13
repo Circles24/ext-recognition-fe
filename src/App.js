@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 import './App.css';
 import { AdminForm } from "./AdminForm";
-import { ExternalRecognitionList } from "./ExternalRecogitionList";
+import { ExternalRecognitionList } from "./ExternalRecognitionList";
+import { ExternalRecognitionView } from "./ExternalRecognitionView";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/recognition",
     element: <ExternalRecognitionList />,
+  },
+  {
+    path: "/recognition/:id",
+    element: <ExternalRecognitionView />,
   },
 ]);
 
