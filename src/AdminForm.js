@@ -84,7 +84,19 @@ export const AdminForm = () => {
             .then((res) => {
                 setMsg("Recognition created successfully!");
                 setTimeout(() => setMsg(""), 3000);
-                
+
+                if ((formState.images.length + formState.videoLinks.length) === 0) {
+                    setFlowState("FORM");
+                    setFormState({
+                        images: [],
+                        imageFiles: [],
+                        videoLinks: [""],
+                        externalLinks: [""]
+                    });
+
+                    return;
+                }
+
                 const refId = res.data.id;
                 const refType = "EXTERNAL_RECOGNITION";
                 const config = {
@@ -98,8 +110,6 @@ export const AdminForm = () => {
                 formData.append("refId", refId);
                 formState.imageFiles.forEach(imgFile => formData.append("imageFiles", imgFile));
                 formState.videoLinks.forEach(link => formData.append("videoLinks", link));
-
-                console.log("formState", formState);
             
                 axios.postForm('http://localhost:8080/recognition/api/media', formData, config)
                 .then(() => {
