@@ -41,7 +41,6 @@ export const ExternalRecognitionList = () => {
                     return { ...r, externalLinks }
                 });
 
-                console.log("recognitions", recognitions);
                 setData({
                     loading: false,
                     error: null,
@@ -88,14 +87,14 @@ export const ExternalRecognitionList = () => {
                 {data.response !== null && (
                     <Box>
                         {data.response.map(r =>
-                            <Box sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "25vw", marginTop: "2vh" }}>
+                            <Box sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "45vw", marginTop: "2vh" }}>
                                 <ExternalRecognitionCard {...r} />
                             </Box>
                         )}
                     </Box>
                 )}
 
-                { paginationData.response !== null && <Pagination page={page} count={paginationData.response.pageCount} onChange={handlePageChange} />}
+                { paginationData.response !== null && <Pagination sx={{marginTop: "2vh"}} page={page} count={paginationData.response.pageCount} onChange={handlePageChange} />}
             </Box>
         </Paper>
     )
