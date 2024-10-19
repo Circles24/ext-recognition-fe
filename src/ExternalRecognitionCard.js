@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react"
 import { Card, CardMedia, CardActions, CardContent, Typography, Button, Box, Alert, Skeleton } from "@mui/material"
 import axios from "axios";
 
-export const ExternalRecognitionCard = ({ id, title, description, externalLinks, videoLinks, images }) => {
+export const ExternalRecognitionCard = ({ id, title, description, externalLinks, videoLinks, images, href }) => {
+
+    console.log("recognition href", href);
 
     let mediaType = "HARDCODED";
     if (id !== undefined && id !== null) {
@@ -62,40 +64,43 @@ export const ExternalRecognitionCard = ({ id, title, description, externalLinks,
             {mediaData.loading && <Skeleton variant="rectangular" height="200px" />}
 
             {mediaType === "HARDCODED" && (
-                <CardMedia
-                    component="img"
-                    alt="green iguana"
-                    height="200"
-                    image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-                />
+                <a className="silent-link" href={href}>
+                    <CardMedia
+                        component="img"
+                        alt="green iguana"
+                        height="200"
+                        image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                    /></a>
             )}
 
             {mediaType === "IMAGE_PROVIDED" && (
-                <CardMedia
+                <a className="silent-link" href={href}><CardMedia
                     component="img"
                     alt="green iguana"
                     height="200"
                     image={images[0]}
-                />
+                /></a>
             )}
 
             {mediaType === "FETCH" && imgDataList !== null && (
-                <CardMedia
+                <a className="silent-link" href={href}><CardMedia
                     component="img"
                     alt={imgDataList[0].fileName}
                     height="200"
                     src={`data:${imgDataList[0].mimeType};base64,${imgDataList[0].mediaContent}`}
-                />
+                /></a>
             )}
 
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {title}
-                </Typography>
+                <a className="silent-link" href={href}>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {title}
+                    </Typography>
 
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {description}
-                </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        {description}
+                    </Typography>
+                </a>
 
                 {videoLinks !== null && videoLinks !== undefined && (videoLinks.length > 0) && (
                     <Box marginTop="2vh">
@@ -110,7 +115,7 @@ export const ExternalRecognitionCard = ({ id, title, description, externalLinks,
                     </Box>
                 )}
 
-                { mediaType === "FETCH" && externalVideoList !== null && externalVideoList !== undefined && (externalVideoList.length > 0) && (
+                {mediaType === "FETCH" && externalVideoList !== null && externalVideoList !== undefined && (externalVideoList.length > 0) && (
                     <Box marginTop="2vh">
                         <Typography variant="body2">Video links</Typography>
                         <Box>
@@ -144,22 +149,22 @@ export const ExternalRecognitionCard = ({ id, title, description, externalLinks,
                     }</Box>
                 )}
 
-                {mediaType === "FETCH" && mediaType === "FETCH" && imgDataList !== null && imgDataList.length > 0 && (
-                    <Box marginTop="2vh" display="flex" flexWrap="wrap">{
-                        imgDataList.map((img) => <Box sx={{ marginRight: "2vw", marginTop: "2vh" }}>
-                            <img height="100vh" width="120vh" src={`data:${img.mimeType};base64,${img.mediaContent}`} />
-                        </Box>)
-                    }</Box>
-                )}
+                <a className="silent-link" href={href}>
+                    {mediaType === "FETCH" && mediaType === "FETCH" && imgDataList !== null && imgDataList.length > 0 && (
+                        <Box marginTop="2vh" display="flex" flexWrap="wrap">{
+                            imgDataList.map((img) => <Box sx={{ marginRight: "2vw", marginTop: "2vh" }}>
+                                <img height="100vh" width="120vh" src={`data:${img.mimeType};base64,${img.mediaContent}`} />
+                            </Box>)
+                        }</Box>
+                    )}
+                </a>
 
             </CardContent>
             <CardActions>
                 <Button size="small">Like</Button>
                 <Button size="small">Comment</Button>
                 <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
             </CardActions>
-
         </Card>
     )
 }

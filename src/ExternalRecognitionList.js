@@ -84,17 +84,15 @@ export const ExternalRecognitionList = () => {
 
                 {data.error !== null && <Alert color="error" variant="outlined">{data.error}</Alert>}
 
-                {data.response !== null && (
-                    <Box>
-                        {data.response.map(r =>
-                            <Box sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "45vw", marginTop: "2vh" }}>
-                                <ExternalRecognitionCard {...r} />
-                            </Box>
-                        )}
-                    </Box>
-                )}
+                {data.response !== null &&
+                    data.response.map(r =>
+                        <Box sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "45vw", marginTop: "2vh" }}>
+                            <ExternalRecognitionCard {...r} href={`/recognition/${r.id}`} />
+                        </Box>
+                    )
+                }
 
-                { paginationData.response !== null && <Pagination sx={{marginTop: "2vh"}} page={page} count={paginationData.response.pageCount} onChange={handlePageChange} />}
+                {paginationData.response !== null && <Pagination sx={{ marginTop: "2vh" }} page={page} count={paginationData.response.pageCount} onChange={handlePageChange} />}
             </Box>
         </Paper>
     )
