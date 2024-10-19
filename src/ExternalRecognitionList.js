@@ -1,4 +1,4 @@
-import { Alert, Pagination, Typography } from "@mui/material";
+import { Alert, Pagination, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Box, Paper } from "@mui/material";
@@ -12,6 +12,12 @@ export const ExternalRecognitionList = () => {
     });
 
     const [paginationData, setPaginationData] = useState({
+        loading: true,
+        error: null,
+        response: null
+    });
+
+    const [topInteractedRecognitions, setTopInteractedRecognitions] = useState({
         loading: true,
         error: null,
         response: null
@@ -67,6 +73,21 @@ export const ExternalRecognitionList = () => {
                 error: "Error loading pagination info " + err.message,
                 response: null
             }));
+    }, []);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/recognition/api/external-recognition/top-interacted`)
+            .then(res => {
+                setTopInteractedRecognitions({
+                    loading: false,
+                    error: null,
+                    response: res.data
+                });
+            }).catch(err => setTopInteractedRecognitions({
+                loading: false,
+                error: "Error loading top interacted recognitions" + err.message,
+                response: null
+            }));
     }, [])
 
     return (
@@ -84,13 +105,39 @@ export const ExternalRecognitionList = () => {
 
                 {data.error !== null && <Alert color="error" variant="outlined">{data.error}</Alert>}
 
-                {data.response !== null &&
-                    data.response.map(r =>
-                        <Box sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "45vw", marginTop: "2vh" }}>
-                            <ExternalRecognitionCard {...r} href={`/recognition/${r.id}`} />
-                        </Box>
-                    )
-                }
+                {topInteractedRecognitions.error !== null && <Alert color="error" variant="outlined">{topInteractedRecognitions.error}</Alert>}
+
+                <Box display="flex" justifyContent="space-between">
+                    <Box>
+                        {data.response !== null &&
+                            data.response.map(r =>
+                                <Box sx={{ minHeight: "25vh", minWidth: "15vw", maxWidth: "45vw", marginTop: "2vh" }}>
+                                    <ExternalRecognitionCard {...r} href={`/recognition/${r.id}`} />
+                                </Box>
+                            )
+                        }
+                    </Box>
+                    <Box>
+                        {topInteractedRecognitions.response !== null && (
+                            <TableContainer component={Paper}>
+                                <Typography variant="h6">Top interacted recogitions</Typography>
+                                <Table>
+                                    <TableHead>
+                                        <TableCell>Rank</TableCell>
+                                        <TableCell>Title</TableCell>
+                                    </TableHead>
+                                    <TableBody>
+                                        {topInteractedRecognitions.response.map((r, i) => <TableRow>
+                                            <TableCell><a href={`/recognition/${r.id}`}>{i + 1}</a></TableCell>
+                                            <TableCell><a href={`/recognition/${r.id}`}>{r.title}</a></TableCell>
+                                        </TableRow>
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        )}
+                    </Box>
+                </Box>
 
                 {paginationData.response !== null && <Pagination sx={{ marginTop: "2vh" }} page={page} count={paginationData.response.pageCount} onChange={handlePageChange} />}
             </Box>
