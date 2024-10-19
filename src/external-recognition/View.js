@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Alert, Box } from "@mui/material";
 import axios from "axios";
-import { ExternalRecognitionCard } from "./ExternalRecognitionCard";
-import { CommentSection } from "./CommentSection";
+import { ExternalRecognitionCard } from "./Card";
+import { CommentSection } from "../common/CommentSection";
 
 export const ExternalRecognitionView = () => {
     const [recognitionData, setRecognitionData] = useState({

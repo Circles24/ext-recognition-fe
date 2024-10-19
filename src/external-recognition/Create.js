@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { Card, Box, TextField, ButtonGroup } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { ExternalRecognitionCard } from "./ExternalRecognitionCard";
+import { ExternalRecognitionCard } from "./Card";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export const AdminForm = () => {

@@ -2,7 +2,7 @@ import { Alert, Pagination, Table, TableBody, TableCell, TableContainer, TableHe
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Box, Paper } from "@mui/material";
-import { ExternalRecognitionCard } from "./ExternalRecognitionCard";
+import { ExternalRecognitionCard } from "./Card";
 
 export const ExternalRecognitionList = () => {
     const [data, setData] = useState({

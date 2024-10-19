@@ -4,9 +4,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './App.css';
-import { AdminForm } from "./AdminForm";
-import { ExternalRecognitionList } from "./ExternalRecognitionList";
-import { ExternalRecognitionView } from "./ExternalRecognitionView";
+import { AdminForm } from "./external-recognition/Create";
+import { ExternalRecognitionList } from "./external-recognition/List";
+import { ExternalRecognitionView } from "./external-recognition/View";
 
 const router = createBrowserRouter([
   {

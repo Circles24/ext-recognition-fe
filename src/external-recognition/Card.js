@@ -4,8 +4,6 @@ import axios from "axios";
 
 export const ExternalRecognitionCard = ({ id, title, description, externalLinks, videoLinks, images, href }) => {
 
-    console.log("recognition href", href);
-
     let mediaType = "HARDCODED";
     if (id !== undefined && id !== null) {
         mediaType = "FETCH";
