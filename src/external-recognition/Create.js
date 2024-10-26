@@ -205,7 +205,7 @@ export const AdminForm = () => {
                                         <Badge badgeContent={<Button size="small" color="error" onClick={() => handleImageDrop(i)}>
                                             <DeleteIcon color="error" />
                                         </Button>}>
-                                            <img height="100vh" width="120vh" src={img} />
+                                            <img height="200vh" src={img} />
                                         </Badge>
                                     </Box>)
                                 }</Box>
